@@ -1,1 +1,1 @@
-echo "Nothing to build yet, dummy!
+./day_01/make.sh
