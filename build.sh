@@ -1,1 +1,2 @@
-./day_01/make.sh
+cd ./build
+cmake .. 
