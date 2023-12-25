@@ -24,6 +24,12 @@ struct BagData {
   }
 };
 
+constexpr auto bagMax(const BagData rhs, const BagData lhs) {
+  return BagData{.red = std::max(lhs.red, rhs.red),
+                 .green = std::max(lhs.green, rhs.green),
+                 .blue = std::max(lhs.blue, rhs.blue)};
+}
+
 struct GameData {
   std::size_t index;
   BagData bag;
@@ -76,7 +82,8 @@ constexpr auto parseBags(const std::string_view bagLine) -> BagData {
                   [](const auto input) { return std::string_view(input); }) |
               std::views::transform(parseBag);
 
-  return std::accumulate(bags.begin(), bags.end(), BagData{});
+  auto max_bag = std::reduce(bags.begin(), bags.end(), BagData{}, bagMax);
+  return max_bag;
 }
 
 constexpr auto parseGame(const std::string_view gameLine) -> GameData {
